@@ -3,12 +3,15 @@ import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import {ContextProvider, InitializeContext} from "./utils/UserContext"
-import { useContext } from "react";
+import {ContextProvider} from "./utils/UserContext"
+// import { useContext } from "react";
+import Trending from "./components/Trending/Trending";
+import Gaming from "./components/Gaming/Gaming";
+import SavedVideos from "./components/SavedVideos/SavedVideos";
 
 const Layout = () => {
-  const {user} = useContext(InitializeContext)
-  console.log(user)
+  // const {user} = useContext(InitializeContext)
+  // console.log(user)
 
   return (
       <div>
@@ -35,7 +38,20 @@ const router = createBrowserRouter(
             {
               path:"",
               element: <Home/>
+            },
+            {
+              path:"/trending",
+              element:<Trending/>
+            },
+            {
+              path:"/gaming",
+              element:<Gaming/>
+            },
+            {
+              path:"saved-videos",
+              element:<SavedVideos/>
             }
+            
           ]
         }
       ],
