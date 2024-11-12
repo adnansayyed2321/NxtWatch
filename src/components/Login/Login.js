@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
+import {  useContext, useState } from "react";
 import { LOGIN_URL } from "../../utils/constants";
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie'
 import { LOGO_URL } from "../../utils/constants";
-import UserContext from "../../utils/UserContext";
+import { InitializeContext} from "../../utils/UserContext";
 
 const Login = () => {
     const [username,setUserName] = useState("")
@@ -14,7 +14,7 @@ const Login = () => {
     const [validationProcess,setValidationProcess] = useState(false)
 
     const navigate = useNavigate()
-    const {setLoggedInUser} = useContext(UserContext)
+    const {setUser} = useContext(InitializeContext)
 
     const getAllDetaials = async (event) => {
         event.preventDefault();
@@ -37,8 +37,8 @@ const Login = () => {
                     expires:30,
     
                 })
-                
-                setLoggedInUser(username)
+                localStorage.setItem("username",username)
+                setUser(username)
                 navigate("/")
             }
             else{
@@ -56,6 +56,9 @@ const Login = () => {
         // console.log(password)
         // console.log(showPassword)
     }
+
+
+    
 
     return (
         <div className="bg-slate-100 w-full h-screen flex flex-col justify-center items-center">

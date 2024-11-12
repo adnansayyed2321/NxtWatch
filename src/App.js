@@ -3,19 +3,18 @@ import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import UserContext from "./utils/UserContext";
-import { useState } from "react";
+import {ContextProvider, InitializeContext} from "./utils/UserContext"
+import { useContext } from "react";
 
 const Layout = () => {
-  const [loggedInUser, setLoggedInUser] = useState(null)
+  const {user} = useContext(InitializeContext)
+  console.log(user)
 
   return (
-    <UserContext.Provider  value={{ loggedInUser, setLoggedInUser }}>
       <div>
         <Header />
         <Outlet />
       </div>
-      </UserContext.Provider>
   );
 };
 
@@ -51,7 +50,10 @@ const router = createBrowserRouter(
 
 function App() {
   return(
+    <ContextProvider>
       <RouterProvider router={router} />
+    </ContextProvider>
+      
   ) ;
 }
 
