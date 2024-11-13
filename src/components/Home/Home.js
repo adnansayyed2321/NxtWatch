@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { VIDEO_LIST_URL } from "../../utils/constants";
 import VideoComponent from "../VideoComponent/VideoComponent";
 import Shimmer from "../Shimmer/Shimmer";
+import { Link } from "react-router-dom";
 
 
 const Home = () => {
@@ -12,7 +13,6 @@ const Home = () => {
     const [userInput,setUserInput] = useState("")
     const [filteredList,setFilteredList] = useState([])
 
-    const sample_list = [1,2,3,4,5,6,7,8,9,10,11,12,13]
 
     const getVideosList = async () => {
         const token = Cookies.get("jwt_token")
@@ -50,7 +50,7 @@ const Home = () => {
     },[])
 
     useEffect(()=>{
-        const filterResults = videoList.filter((e)=>e.title.toLowerCase().includes(userInput))
+        const filterResults = videoList.filter((e)=>e.title.toLowerCase().includes(userInput.toLowerCase()))
         // console.log(filterResults)
         // console.log("run")
         setFilteredList(filterResults)
@@ -67,12 +67,12 @@ const Home = () => {
                     <button className="px-3 text-xl bg-gray-300 rounded-r-md"><CiSearch /></button>
                 </div>
                 {
-                    videoList.length === 0 ? <div className="grid grid-cols-3 gap-4 pt-12">{
-                        sample_list.map((e)=><Shimmer key={e}/>)
-                    }</div> :
+                    videoList.length === 0 ? <Shimmer/> :
                     filteredList.length === 0 ? <p  className="grid grid-cols-3 gap-4 pt-12">no results</p> : <div className="grid grid-cols-3 gap-4 pt-12">
                     {filteredList.map((each) => 
-                    (<VideoComponent key={each.id} videoDetails={each}/>)
+                    (<Link key={each.id} to={"video/" + each.id}>
+                        <VideoComponent videoDetails={each}/>
+                    </Link>)
                     )}
                 </div>
                 }

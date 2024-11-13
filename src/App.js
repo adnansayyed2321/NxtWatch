@@ -8,6 +8,7 @@ import {ContextProvider} from "./utils/UserContext"
 import Trending from "./components/Trending/Trending";
 import Gaming from "./components/Gaming/Gaming";
 import SavedVideos from "./components/SavedVideos/SavedVideos";
+import DetailVideo from "./components/DetailsVideo/DetailVideo";
 
 const Layout = () => {
   // const {user} = useContext(InitializeContext)
@@ -50,8 +51,11 @@ const router = createBrowserRouter(
             {
               path:"saved-videos",
               element:<SavedVideos/>
+            },
+            {
+              path:"video/:id",
+              element:<DetailVideo/>
             }
-            
           ]
         }
       ],
